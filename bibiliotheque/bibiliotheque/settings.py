@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gestionDeBibiliotheque',
+    'admin_system',
 ]
 
 MIDDLEWARE = [
