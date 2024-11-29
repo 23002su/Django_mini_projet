@@ -8,15 +8,8 @@ class Livre(models.Model):
     genre = models.CharField(max_length=100)
     description = models.TextField()
     date_publication = models.DateField()
-    couverture_link = models.URLField(max_length=255)
+    couverture = models.ImageField(upload_to='book_covers/',default='book_covers/default.jpg')
     
-    def __init__(self,titre,auteur,genre,description,date_publication,couverture_link):
-        self.titre = titre
-        self.auteur = auteur
-        self.genre = genre
-        self.description = description
-        self.date_publication = date_publication
-        self.couverture_link = couverture_link
         
 class Clients(models.Model):
     nom = models.CharField(max_length=55)
@@ -24,11 +17,6 @@ class Clients(models.Model):
     tel = models.IntegerField(max_length=8)
     age = models.IntegerField(max_length=5)
     
-    def __init__(self,nom,prenom,tel,age):
-        self.nom = nom
-        self.prenom = prenom
-        self.tel = tel
-        self.age = age
         
 
 class Emprunt(models.Model):
@@ -39,8 +27,3 @@ class Emprunt(models.Model):
     date_retour_effective = models.DateField(null=True)
     
     
-    def __init__(self,id_livre,id_client,date_emprunt,date_retour_prevue):
-        self.id_livre = id_livre
-        self.id_client = id_client
-        self.date_emprunt = date_emprunt
-        self.date_retour_prevue = date_retour_prevue

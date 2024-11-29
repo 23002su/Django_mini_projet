@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .booksCon{
+            padding: 60px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .bookCon{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 400px;
+        }
+        .bookCoverCon{
+            width: 130px; /* Set the desired width */
+            aspect-ratio: 2 / 3; /* Common aspect ratio for book covers (width:height) */
+            overflow: hidden; /* Hide any overflowing content */
+            border: 1px solid #ddd; /* Optional: border for aesthetics */
+            border-radius: 5px; /* Optional: rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: shadow for a polished look */
+            background-color: #f4f4f4; /* Fallback background color */
+            display: flex; /* Center content */
+            align-items: center;
+            justify-content: center;
+        }
+        .bookCoverCon img{
+            width: 100%; /* Scale the image proportionally to fit the width */
+            height: 100%; /* Scale the image proportionally to fit the height */
+            object-fit: cover; /* Ensure the image covers the container fully */
+            object-position: center; /* Center the image */
+            display: block; /* Prevent inline-block spacing issues */
+        }
+        .descCon{
+            display: -webkit-box;
+            -webkit-line-clamp: 1; /* Number of lines to show */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Adds "..." at the end of truncated text */
+            width: 200px; /* Optional: Set max width for consistent design */
+            font-size: 16px; /* Adjust text size */
+            line-height: 1.5; /* Adjust line spacing */
+        }
+    </style>
+</head>
+<body>
+    <div class="booksCon">
+        {% for i in livres %}
+            <div class="bookCon">
+                <div class="bookCoverCon">
+                    <img src="{{i.couverture.url}}" alt="photo">
+                </div>
+                <div class="bookInfoCon">
+                    <h3>{{ i.titre }}</h3>
+                    <p>{{ i.auteur }}</p>
+                    <p>{{ i.genre }}</p>
+                    <p>{{ i.date_publication }}</p>
+                    <p class="descCon" title="{{i.description}}">{{ i.description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
