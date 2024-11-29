@@ -14,6 +14,8 @@ class Livre(models.Model):
 class Clients(models.Model):
     nom = models.CharField(max_length=55)
     prenom = models.CharField(max_length=55)
+    email=models.CharField(max_length=255,default='')
+    password=models.CharField(max_length=255,default='')
     tel = models.IntegerField(max_length=8)
     age = models.IntegerField(max_length=5)
     
