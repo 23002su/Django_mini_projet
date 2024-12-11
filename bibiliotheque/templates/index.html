@@ -51,7 +51,7 @@
         {% for i in livres %}
             <div class="bookCon">
                 <div class="bookCoverCon">
-                    <img src="{{i.couverture.url}}" alt="photo">
+                    <img src="{{ MEDIA_URL }}{{i.couverture.url}}" alt="photo">
                 </div>
                 <div class="bookInfoCon">
                     <h3>{{ i.titre }}</h3>
