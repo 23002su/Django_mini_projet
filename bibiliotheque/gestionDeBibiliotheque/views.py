@@ -5,9 +5,9 @@ from .models import *
 
 # Create your views here.
 
-def createlivre(request):
+def displayBooks(request):
     livres = Livre.objects.all()
-    return render(request, 'inde.html',{'livres':livres})
+    return render(request, 'index.html',{'livres':livres})
 def regester(request):
     if request.method=='GET':
         return  render(request,'regester.html')
