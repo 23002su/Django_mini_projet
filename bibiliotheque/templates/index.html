@@ -162,6 +162,108 @@
             font-size: 16px; /* Adjust text size */
             line-height: 1.5; /* Adjust line spacing */
         }
+
+        .modal-wrapper {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        
+        .modal-box {
+            background-color: #F8F3E5;
+            margin: 10% auto; /* Center the modal */
+            padding: 20px;
+            border: 1.5px solid #4B3F2F;
+            width: 80%; /* Adjust as needed */
+            max-width: 800px; /* Max width */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Shadow for depth */
+        }
+        
+        .close-icon {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close-icon:hover,
+        .close-icon:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .modal-details {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .modal-cover{
+            width: 130px; /* Set the desired width */
+            aspect-ratio: 2 / 3; /* Common aspect ratio for book covers (width:height) */
+            overflow: hidden; /* Hide any overflowing content */
+            border: 1px solid #ddd; /* Optional: border for aesthetics */
+            border-radius: 5px; /* Optional: rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: shadow for a polished look */
+            background-color: #f4f4f4; /* Fallback background color */
+            display: flex; /* Center content */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-cover img {
+            width: 100%; /* Scale the image proportionally to fit the width */
+            height: 100%; /* Scale the image proportionally to fit the height */
+            object-fit: cover; /* Ensure the image covers the container fully */
+            object-position: center; /* Center the image */
+            display: block;
+            
+        }
+        
+        .modal-info {
+            flex: 1;
+        }
+        
+        .modal-info h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #4B3F2F;
+        }
+        
+        .modal-info p {
+            margin: 5px 0;
+            color: #4B3F2F;
+        }
+        
+        .borrow-status {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #7C3F58; /* Purple background */
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .borrow-btn {
+            background-color: #7C3F58; /* Purple button color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0 auto;
+        }
+        
+
     </style>
 </head>
 <body>
@@ -197,7 +299,7 @@
                     <img src="{{ MEDIA_URL }}{{i.couverture.url}}" alt="photo">
                 </div>
                 <div class="bookInfoCon">
-                    <h3>{{ i.titre }}</h3>
+                    <h3><a>{{ i.titre }}</a></h3>
                     <p>{{ i.auteur }}</p>
                     <p>{{ i.genre }}</p>
                     <p>{{ i.date_publication }}</p>
@@ -206,5 +308,39 @@
             </div>
         {% endfor %}
     </div>   
+
+
+
+
+
+
+
+
+
+
+
+    <div id="bookBorrowModal" class="modal-wrapper">
+        <div class="modal-box">
+            <span class="close-icon">&times;</span>
+            <div class="modal-details">
+                <div class="modal-cover">
+                    <img src="media/book_covers/a_little_life.jpg" alt="Book Cover">
+                </div>
+                <div class="modal-info">
+                    <h2>A Little Life</h2>
+                    <p>Hanya Yanagihara</p>
+                    <p>Contemporary Fiction</p>
+                    <p>23/12/2024</p>
+                    <p>A heartbreaking novel following four college friends in New York City as they navigate ambition, relationships, and trauma over decades.</p>
+                </div>
+            </div>
+            <div class="borrow-status">
+                <p>Ce livre est emprunté pour le moment. Il sera disponible le 23/12/2024 !!!</p>
+            </div>
+            <button class="borrow-btn">Emprunter</button>
+        </div>
+    </div>
+    
+
 </body>
 </html>
