@@ -1,13 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password,check_password
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import *
 
+
 # Create your views here.
 
 def displayBooks(request):
-    livres = Livre.objects.all()
+    livres = Livre.objects.all().filter(status='disponible')
     return render(request, 'index.html',{'livres':livres})
+
+def ClickedBook(request, id):
+    livres = Livre.objects.all().filter(status='disponible')
+    try:
+        selectedbook = Livre.objects.get(id=id)
+    except Livre.DoesNotExist:
+        selectedbook = None
+    return render(request, 'index.html',{'livres':livres, 'selectedbook':selectedbook})
+
+def cancelClickedBook(request):
+    return redirect('displayBooks')
+
 def regester(request):
     if request.method=='GET':
         return  render(request,'regester.html')

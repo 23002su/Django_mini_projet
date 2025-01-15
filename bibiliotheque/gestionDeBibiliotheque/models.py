@@ -9,8 +9,8 @@ class Livre(models.Model):
     description = models.TextField()
     date_publication = models.DateField()
     couverture = models.ImageField(upload_to='book_covers/',default='book_covers/default.jpg')
-    statu=models.CharField(max_length=255,default='disponible')
-   
+    status=models.CharField(max_length=255,default='disponible')
+    
     
         
 class Clients(models.Model):

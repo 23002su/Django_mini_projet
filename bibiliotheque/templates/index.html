@@ -152,6 +152,17 @@
             object-position: center; /* Center the image */
             display: block; /* Prevent inline-block spacing issues */
         }
+        .bookInfoCon,.bookInfoCon a{
+            color: #4B3F2F;
+            text-decoration: none;
+        }
+        .titlelines{
+            white-space: normal; /* Allows text to wrap */
+            word-wrap: break-word; /* Ensures text wraps if it's too long */
+            word-break: break-word; /* Breaks long words if necessary */
+            overflow-wrap: break-word;
+            width: 200px;
+        }
         .descCon{
             display: -webkit-box;
             -webkit-line-clamp: 1; /* Number of lines to show */
@@ -164,7 +175,7 @@
         }
 
         .modal-wrapper {
-            display: none; /* Hidden by default */
+            display: ; /* Hidden by default */
             position: fixed; /* Stay in place */
             z-index: 1; /* Sit on top */
             left: 0;
@@ -178,7 +189,7 @@
         .modal-box {
             background-color: #F8F3E5;
             margin: 10% auto; /* Center the modal */
-            padding: 20px;
+            padding: 30px;
             border: 1.5px solid #4B3F2F;
             width: 80%; /* Adjust as needed */
             max-width: 800px; /* Max width */
@@ -189,7 +200,7 @@
         .close-icon {
             color: #aaa;
             float: right;
-            font-size: 28px;
+            font-size: 40px;
             font-weight: bold;
         }
         
@@ -255,6 +266,8 @@
             background-color: #7C3F58; /* Purple button color */
             color: white;
             border: none;
+            width: 200px;
+            height: 50px;
             padding: 10px 20px;
             border-radius: 25px;
             font-size: 16px;
@@ -293,54 +306,42 @@
     </div>
 
     <div class="booksCon">
-        {% for i in livres %}
-            <div class="bookCon">
-                <div class="bookCoverCon">
-                    <img src="{{ MEDIA_URL }}{{i.couverture.url}}" alt="photo">
-                </div>
-                <div class="bookInfoCon">
-                    <h3><a>{{ i.titre }}</a></h3>
-                    <p>{{ i.auteur }}</p>
-                    <p>{{ i.genre }}</p>
-                    <p>{{ i.date_publication }}</p>
-                    <p class="descCon" title="{{i.description}}">{{ i.description }}</p>
-                </div>
+        {% for livre in livres %}
+        <div class="bookCon">
+            <div class="bookCoverCon">
+                <img src="{{ livre.couverture.url }}" alt="photo">
             </div>
+            <div class="bookInfoCon">
+                <h2 class="titlelines" title="{{ livre.titre }}"><a href="{% url 'ClickedBook' id=livre.id %}">{{ livre.titre }}</a></h2>
+                <p>{{ livre.auteur }}</p>
+                <p>{{ livre.genre }}</p>
+                <p>{{ livre.date_publication }}</p>
+                <p class="descCon" title="{{ livre.description }}">{{ livre.description }}</p>
+            </div>
+        </div>
         {% endfor %}
-    </div>   
+    </div>
 
-
-
-
-
-
-
-
-
-
-
+    {% if selectedbook %}
     <div id="bookBorrowModal" class="modal-wrapper">
         <div class="modal-box">
-            <span class="close-icon">&times;</span>
+            <a href="{% url 'cancelClickedBook' %}"><span class="close-icon">&times;</span></a>
             <div class="modal-details">
                 <div class="modal-cover">
-                    <img src="media/book_covers/a_little_life.jpg" alt="Book Cover">
+                    <img src="{{ selectedbook.couverture.url }}" alt="Book Cover">
                 </div>
                 <div class="modal-info">
-                    <h2>A Little Life</h2>
-                    <p>Hanya Yanagihara</p>
-                    <p>Contemporary Fiction</p>
-                    <p>23/12/2024</p>
-                    <p>A heartbreaking novel following four college friends in New York City as they navigate ambition, relationships, and trauma over decades.</p>
+                    <h1>{{ selectedbook.titre }}</h1>
+                    <p><strong>Auteur:</strong> {{ selectedbook.auteur }}</p>
+                    <p><strong>Genre:</strong> {{ selectedbook.genre }}</p>
+                    <p><strong>Date de Publication:</strong> {{ selectedbook.date_publication }}</p>
+                    <p><strong>Description:</strong> {{ selectedbook.description }}</p>
                 </div>
-            </div>
-            <div class="borrow-status">
-                <p>Ce livre est emprunté pour le moment. Il sera disponible le 23/12/2024 !!!</p>
             </div>
             <button class="borrow-btn">Emprunter</button>
         </div>
     </div>
-    
+    {% endif %}
 
 </body>
 </html>
