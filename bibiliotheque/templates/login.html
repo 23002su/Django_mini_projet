@@ -10,15 +10,22 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <style>
         body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
+            background-color: #F8F3E5; /* Light beige background */
+            color: #4B3F2F; /* Dark brown text color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height:100vh;
         }
 
         .login-container {
-            max-width: 400px;
+            max-width: 800px;
+            width: 600px;
             margin: 100px auto;
             padding: 30px;
-            background-color: white;
+            background-color: #4B3F2F;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -26,11 +33,15 @@
         .login-container h2 {
             margin-bottom: 30px;
             text-align: center;
-            color: #007bff;
+            color: #fefefe;
         }
 
         .login-container .form-group {
             margin-bottom: 20px;
+        }
+        .login-container .form-group input{
+            background: #F8F3E5;
+            color: #000;
         }
 
         .login-container .form-control {
@@ -40,7 +51,7 @@
 
         .login-container button {
             width: 100%;
-            background-color: #007bff;
+            background-color: #399ba0;
             color: white;
             font-size: 16px;
             padding: 12px;
@@ -49,7 +60,7 @@
         }
 
         .login-container button:hover {
-            background-color: #0056b3;
+            background-color: #4dc9c4;
         }
 
         .login-container .form-text {
@@ -57,9 +68,11 @@
             font-size: 14px;
             margin-top: 15px;
         }
-
+        .login-container .form-text span{
+            color: #fefefe;
+        }
         .login-container .form-text a {
-            color: #007bff;
+            color: #4dc9c4;
             text-decoration: none;
         }
 
@@ -82,7 +95,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
             <div class="form-text">
-                Don't have an account? <a href="{% url 'regester' %}">Register here</a>
+                <span>Don't have an account?</span> <a href="{% url 'regester' %}">Register here</a>
             </div>
         </form>
     </div>
