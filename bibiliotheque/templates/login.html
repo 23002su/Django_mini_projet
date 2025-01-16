@@ -66,6 +66,9 @@
         .login-container .form-text a:hover {
             text-decoration: underline;
         }
+        .gg{
+            background-color: red;
+        }
     </style>
 </head>
 
@@ -84,6 +87,11 @@
             <div class="form-text">
                 Don't have an account? <a href="{% url 'regester' %}">Register here</a>
             </div>
+            {% if message %}
+            <div class="form-text gg">
+               {{message}}
+            </div>
+            {% endif %}
         </form>
     </div>
 
