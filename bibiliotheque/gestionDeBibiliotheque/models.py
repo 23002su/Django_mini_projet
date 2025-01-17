@@ -7,6 +7,7 @@ class Livre(models.Model):
     auteur = models.CharField(max_length=200)
     genre = models.CharField(max_length=100)
     description = models.TextField()
+    
     date_publication = models.DateField()
     couverture = models.ImageField(upload_to='book_covers/',default='book_covers/default.jpg')
     status=models.CharField(max_length=255,default='disponible')
@@ -19,8 +20,8 @@ class Clients(models.Model):
     email=models.CharField(max_length=255,default='')
     password=models.CharField(max_length=255,default='')
     role=models.CharField(max_length=80,default='user')
-    tel = models.IntegerField(max_length=8)
-    age = models.IntegerField(max_length=5)
+    tel = models.IntegerField()
+    age = models.IntegerField()
     nb_livre=models.IntegerField(default=0)
     
         
