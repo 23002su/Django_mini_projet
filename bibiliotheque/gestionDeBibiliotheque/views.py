@@ -2,24 +2,18 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password,check_password
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import *
+from django.db.models import Prefetch
 
-
-# Create your views here.
 
 def displayBooks(request):
     livres = Livre.objects.all().filter(status='disponible')
     return render(request, 'index.html',{'livres':livres})
 
-def ClickedBook(request, id):
-    livres = Livre.objects.all().filter(status='disponible')
-    try:
-        selectedbook = Livre.objects.get(id=id)
-    except Livre.DoesNotExist:
-        selectedbook = None
-    return render(request, 'index.html',{'livres':livres, 'selectedbook':selectedbook})
+def CoinsPromodisplay(request):
+    coins_promos = CoinsPromo.objects.filter(is_active=True)
+    return render(request, 'coinsPromo.html', {'coins_promos': coins_promos})
 
-def cancelClickedBook(request):
-    return redirect('displayBooks')
+
 
 def regester(request):
     if request.method=='GET':
@@ -43,9 +37,117 @@ def login(request):
         user=Clients.objects.filter(email=email).first()
         if user:
             if check_password(password,user.password):
-                return HttpResponse("vrai")
+                return redirect('displayBooks')
             else:
                 return HttpResponse("no")
         else:
             return HttpResponse("no")
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        # CoinsPromo.objects.create(
+    # name="Welcome Bundle",
+    # description="Get started with our exclusive welcome offer and receive bonus coins to explore!",
+    # coins=500,
+    # bonus_coins=50,
+    # price=4.99 * 37,  # Converted to MRU
+    # is_active=True
+    # )
+
+    # CoinsPromo.objects.create(
+    #     name="Weekend Booster Pack",
+    #     description="Limited-time offer! Get extra coins and bonus rewards this weekend only.",
+    #     coins=1000,
+    #     bonus_coins=200,
+    #     price=9.99 * 37,  # Converted to MRU
+    #     is_active=True
+    # )
+
+    # CoinsPromo.objects.create(
+    #     name="Monthly Mega Bundle",
+    #     description="Save big with our best-value monthly promotion. Perfect for frequent users!",
+    #     coins=5000,
+    #     bonus_coins=1000,
+    #     price=39.99 * 37,  # Converted to MRU
+    #     is_active=True
+    # )
+
+    # CoinsPromo.objects.create(
+    #     name="Flash Sale 2X Bonus",
+    #     description="Double your rewards during this limited-time flash sale!",
+    #     coins=1000,
+    #     bonus_coins=1000,
+    #     price=14.99 * 37,  # Converted to MRU
+    #     is_active=True
+    # )
+
+    # CoinsPromo.objects.create(
+    #     name="Holiday Cheer Pack",
+    #     description="Celebrate the season with a festive coin bundle and huge bonuses!",
+    #     coins=3000,
+    #     bonus_coins=750,
+    #     price=24.99 * 37,  # Converted to MRU
+    #     is_active=True
+    # )
+
+    # CoinsPromo.objects.create(
+    #     name="Starter Pack",
+    #     description="A small, affordable pack for first-time buyers.",
+    #     coins=300,
+    #     bonus_coins=30,
+    #     price=2.99 * 37,  # Converted to MRU
+    #     is_active=True
+    # )
+
+    # CoinsPromo.objects.create(
+    #     name="Loyalty Rewards Pack",
+    #     description="As a token of appreciation, we’re offering bonus coins exclusively for our loyal users!",
+    #     coins=2000,
+    #     bonus_coins=400,
+    #     price=19.99 * 37,  # Converted to MRU
+    #     is_active=True
+    # )
+
+    # CoinsPromo.objects.create(
+    #     name="Ultimate Collector's Bundle",
+    #     description="For the ultimate player! Unlock massive rewards with this premium bundle.",
+    #     coins=10000,
+    #     bonus_coins=2500,
+    #     price=79.99 * 37,  # Converted to MRU
+    #     is_active=True
+    # )
+
+    # CoinsPromo.objects.create(
+    #     name="Mid-Week Coins Boost",
+    #     description="Beat the mid-week slump with this surprise bonus offer.",
+    #     coins=800,
+    #     bonus_coins=160,
+    #     price=6.99 * 37,  # Converted to MRU
+    #     is_active=True
+    # )
+
+    # CoinsPromo.objects.create(
+    #     name="Anniversary Special",
+    #     description="Celebrate with us! Enjoy an exclusive promotion to mark our anniversary.",
+    #     coins=4000,
+    #     bonus_coins=800,
+    #     price=29.99 * 37,  # Converted to MRU
+    #     is_active=True
+    # )

@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
 /*----------start header design--------------*/        
         body {
@@ -88,23 +89,47 @@
         }
         header .logo nav{
             padding-left: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         header .logo nav a {
             margin-left: 30px;
             text-decoration: none;
             color: white;
             font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
+        header .logo nav a span{
+            width: 10px;
+        }
+        header .leftSideOfTheLogo{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
         header .navbtn {
             background-color: #7C3F58;
             text-decoration: none; /* Purple button color */
             color: white;
             border: none;
-            padding: 8px 50px;
+            padding: 8px 40px;
             border-radius: 25px;
             font-size: 18px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header .navbtn span{
+            width: 10px;
+        }
+        header .leftSideOfTheLogo .coinsicon{
+            font-size: 24px;
+            color: #fff;
         }
 /*----------end header design--------------*/
 
@@ -127,6 +152,8 @@
 /*----------end search bar design--------------*/        
         
 
+
+
 /*----------start book display design--------------*/
         .booksCon{
             display: flex;
@@ -143,7 +170,7 @@
             width: 400px;
         }
         .bookCoverCon{
-            width: 130px; /* Set the desired width */
+            width: 160px; /* Set the desired width */
             aspect-ratio: 2 / 3; /* Common aspect ratio for book covers (width:height) */
             overflow: hidden; /* Hide any overflowing content */
             border: 1px solid #ddd; /* Optional: border for aesthetics */
@@ -174,7 +201,7 @@
         }
         .descCon{
             display: -webkit-box;
-            -webkit-line-clamp: 1; /* Number of lines to show */
+            -webkit-line-clamp: 2; /* Number of lines to show */
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis; /* Adds "..." at the end of truncated text */
@@ -278,13 +305,15 @@
             background-color: #7C3F58; /* Purple button color */
             color: white;
             border: none;
-            width: 200px;
-            height: 50px;
+            width: 150px;
+            height: 30px;
             padding: 10px 20px;
             border-radius: 25px;
             font-size: 16px;
             cursor: pointer;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin: 20px auto 0 auto;
         }
 /*----------start modal design--------------*/        
@@ -304,11 +333,14 @@
             </div> <!-- Replace with your logo -->
             <p>The Ink Haven</p>
             <nav>
-                <a href="{% url 'displayBooks' %}">Books</a>
-                <a href="#">My books</a>
+                <a href="{% url 'displayBooks' %}"><ion-icon name="book-outline"></ion-icon><span></span>Books</a>
+                <a href="#"><ion-icon name="heart-outline"></ion-icon><span></span>My books</a>
             </nav>
         </div>
-        <a href="{% url 'login' %}" class="navbtn">Login</a>
+        <div class="leftSideOfTheLogo">
+            <a class="coinsicon" href="{% url 'CoinsPromodisplay' %}" class=""><i class="bi bi-c-circle"></i></a>
+            <a href="{% url 'login' %}" class="navbtn"><ion-icon name="log-in-outline"></ion-icon><span></span>Login</a>
+        </div>
     </header>
 <!-- Header Section end -->
 
@@ -319,6 +351,8 @@
     </div>
 <!-- Search Bar end -->    
 
+
+
 <!-- Book display start -->
     <div class="booksCon">
         {% for livre in livres %}
@@ -327,7 +361,19 @@
                 <img src="{{ livre.couverture.url }}" alt="photo">
             </div>
             <div class="bookInfoCon">
-                <h2 class="titlelines" title="{{ livre.titre }}"><a href="{% url 'ClickedBook' id=livre.id %}">{{ livre.titre }}</a></h2>
+                <h2 class="titlelines" title="{{ livre.titre }}">
+                    <a href="javascript:void(0)" 
+                    class="open-modal" 
+                    data-id="{{ livre.id }}" 
+                    data-title="{{ livre.titre }}" 
+                    data-author="{{ livre.auteur }}" 
+                    data-genre="{{ livre.genre }}" 
+                    data-date="{{ livre.date_publication }}" 
+                    data-description="{{ livre.description }}" 
+                    data-cover="{{ livre.couverture.url }}">
+                    {{ livre.titre }}
+                    </a>
+                </h2>
                 <p>{{ livre.auteur }}</p>
                 <p>{{ livre.genre }}</p>
                 <p>{{ livre.date_publication }}</p>
@@ -339,27 +385,73 @@
 <!-- Book display end -->
 
 <!-- Book modal start -->
-    {% if selectedbook %}
-    <div id="bookBorrowModal" class="modal-wrapper">
+    <div id="bookBorrowModal" class="modal-wrapper" style="display: none;">
         <div class="modal-box">
-            <a href="{% url 'cancelClickedBook' %}"><span class="close-icon">&times;</span></a>
+            <span class="close-icon">&times;</span>
             <div class="modal-details">
                 <div class="modal-cover">
-                    <img src="{{ selectedbook.couverture.url }}" alt="Book Cover">
+                    <img id="modal-cover" src="" alt="Book Cover">
                 </div>
                 <div class="modal-info">
-                    <h1>{{ selectedbook.titre }}</h1>
-                    <p><strong>Auteur:</strong> {{ selectedbook.auteur }}</p>
-                    <p><strong>Genre:</strong> {{ selectedbook.genre }}</p>
-                    <p><strong>Date de Publication:</strong> {{ selectedbook.date_publication }}</p>
-                    <p><strong>Description:</strong> {{ selectedbook.description }}</p>
+                    <h1 id="modal-title"></h1>
+                    <p><strong>Auteur:</strong> <span id="modal-author"></span></p>
+                    <p><strong>Genre:</strong> <span id="modal-genre"></span></p>
+                    <p><strong>Date de Publication:</strong> <span id="modal-date"></span></p>
+                    <p><strong>Description:</strong> <span id="modal-description"></span></p>
                 </div>
             </div>
-            <button class="borrow-btn">Emprunter</button>
+            <div class="borrow-btn"><p>Borrow</p></div>
         </div>
     </div>
-    {% endif %}
 <!-- Book modal end -->
 
+<!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const modal = document.getElementById("bookBorrowModal");
+            const modalCover = document.getElementById("modal-cover");
+            const modalTitle = document.getElementById("modal-title");
+            const modalAuthor = document.getElementById("modal-author");
+            const modalGenre = document.getElementById("modal-genre");
+            const modalDate = document.getElementById("modal-date");
+            const modalDescription = document.getElementById("modal-description");
+            const closeModal = document.querySelector(".close-icon");
+
+            // Open modal
+            document.querySelectorAll(".open-modal").forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const { cover, title, author, genre, date, description } = link.dataset;
+
+                    // Populate modal with book data
+                    modalCover.src = cover;
+                    modalTitle.textContent = title;
+                    modalAuthor.textContent = author;
+                    modalGenre.textContent = genre;
+                    modalDate.textContent = date;
+                    modalDescription.textContent = description;
+
+                    // Show modal
+                    modal.style.display = "block";
+                });
+            });
+
+            // Close modal
+            closeModal.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+
+            // Close modal on clicking outside of it
+            window.addEventListener("click", (e) => {
+                if (e.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

@@ -10,6 +10,8 @@ class Livre(models.Model):
     date_publication = models.DateField()
     couverture = models.ImageField(upload_to='book_covers/',default='book_covers/default.jpg')
     status=models.CharField(max_length=255,default='disponible')
+    coins_to_pay = models.IntegerField(default=20)
+    num_borrow=models.IntegerField(default=0)
     
     
         
@@ -21,6 +23,7 @@ class Clients(models.Model):
     tel = models.IntegerField(max_length=8)
     age = models.IntegerField(max_length=5)
     nb_livre=models.IntegerField(default=0)
+    coins_purchased = models.IntegerField(default=200)
     
         
 
@@ -30,5 +33,19 @@ class Emprunt(models.Model):
     date_emprunt = models.DateField()
     date_retour_prevue = models.DateField()
     date_retour_effective = models.DateField(null=True)
+    coins_payed = models.IntegerField(default=0)
+
+
+class CoinsPromo(models.Model):
+    name = models.CharField(max_length=100, blank=True)
+    description = models.TextField(blank=True, null=True)
+    coins = models.PositiveIntegerField(default=0)
+    bonus_coins = models.PositiveIntegerField(default=0) 
+    price = models.DecimalField(default=0,max_digits=10,decimal_places=2)
+    is_active = models.BooleanField(default=True)  
     
     
+class Purchase(models.Model):
+    client = models.ForeignKey(Clients, on_delete=models.CASCADE)
+    coins_promo = models.ForeignKey(CoinsPromo, on_delete=models.CASCADE)  # Total cost of the purchase
+    purchase_date = models.DateTimeField(auto_now_add=True)

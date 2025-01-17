@@ -1,0 +1,273 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+/*----------start header design--------------*/        
+        body {
+            /*font-family: 'Inter', sans-serif;*/
+            background-color: #F8F3E5; /* Light beige background */
+            color: #4B3F2F; /* Dark brown text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4B3F2F; /* Dark brown header */
+            padding: 0px 40px;
+            color: white;
+            height:65px;
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Wrapper for alignment and scaling */
+        header .logo .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px; /* Adjust this value to resize the design */
+            height: 60px; /* Maintain a proportionate height */
+            
+        }
+
+        /* Container for the cards */
+        header .logo .wrapper .card-container {
+            position: relative;
+            width: 100%; /* Fills the width of the wrapper */
+            height: 100%; /* Fills the height of the wrapper */
+        }
+
+        /* Shared Card Styles */
+        header .logo .wrapper .card-container .card {
+            position: absolute;
+            width: 80%; /* Relative to the container width */
+            height: 80%; /* Relative to the container height */
+            border-radius: 5%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        /* Card 1 (Light Teal) */
+        header .logo .wrapper .card-container .card1 {
+            background-color: #4dc9c4;
+            transform: rotate(-10deg) translateX(-20%);
+            z-index: 1;
+        }
+
+        /* Card 2 (Medium Teal) */
+        header .logo .wrapper .card-container .card2 {
+            background-color: #399ba0;
+            transform: rotate(0deg);
+            z-index: 2;
+        }
+
+        /* Card 3 (Dark Teal) */
+        header .logo .wrapper .card-container .card3 {
+            background-color: #2e6d7d;
+            transform: rotate(10deg) translateX(20%);
+            z-index: 3;
+        }
+
+        /* Hover effect for interactivity */
+        header .logo .wrapper .card-container .card:hover {
+            transform: scale(1.05);
+        }
+
+        header .logo p{
+            margin-left: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 28px;
+        }
+        header .logo nav{
+            padding-left: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header .logo nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header .logo nav a span{
+            width: 10px;
+        }
+        header .leftSideOfTheLogo{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+        header .navbtn {
+            background-color: #7C3F58;
+            text-decoration: none; /* Purple button color */
+            color: white;
+            border: none;
+            padding: 8px 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header .navbtn span{
+            width: 10px;
+        }
+        header .leftSideOfTheLogo .coinsicon{
+            font-size: 24px;
+            color: #fff;
+        }
+/*----------end header design--------------*/
+
+
+
+/*----------start promotions design--------------*/
+        .promo-container h1 {
+            color: #000;
+            font-size: 40px;
+        }
+
+        .promo-container {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .promo {
+            background-color: #7BDADE;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 9px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        .promo-header h2 {
+            margin: 0;
+            font-size: 28px;
+            color: #000;
+        }
+        .promo-header p{
+            color: #000;
+            font-size: 20px;
+            padding-left: 30px;
+        }
+
+
+
+        .promo-details p {
+            margin: 5px 0;
+            font-size: 20px;
+        }
+
+        .promo-price {
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+
+
+        .promo-price .current-price {
+            font-size: 24px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .info-icons {
+            font-size: 24px;
+            margin-bottom: 10px;
+            padding-bottom: 30px;
+        }
+
+        .info-icons span {
+            margin-right: 15px;
+        }
+
+        .info-icons span:before {
+            content: "  ";
+            margin-right: 5px;
+        }
+/*----------end promotions design--------------*/        
+</style>
+</head>
+<body>
+
+<!-- Header Section start -->
+    <header>
+        <div class="logo">
+            <div class="wrapper">
+                <div class="card-container">
+                    <div class="card card1"></div>
+                    <div class="card card2"></div>
+                    <div class="card card3"></div>
+                </div>
+            </div> <!-- Replace with your logo -->
+            <p>The Ink Haven</p>
+            <nav>
+                <a href="{% url 'displayBooks' %}"><ion-icon name="book-outline"></ion-icon><span></span>Books</a>
+                <a href="#"><ion-icon name="heart-outline"></ion-icon><span></span>My books</a>
+            </nav>
+        </div>
+        <div class="leftSideOfTheLogo">
+            <a class="coinsicon" href="{% url 'CoinsPromodisplay' %}" class=""><i class="bi bi-c-circle"></i></a>
+            <a href="{% url 'login' %}" class="navbtn"><ion-icon name="log-in-outline"></ion-icon><span></span>Login</a>
+        </div>
+    </header>
+<!-- Header Section end -->
+
+
+<div class="promo-container">
+    <h1>Purchase Coins</h1>
+    {% if coins_promos %}
+
+    <div class="info-icons">
+        <span>🪙 Coins</span>
+        <span>💎 Bonus Coins</span>
+    </div>
+
+        {% for promo in coins_promos %}
+            <div class="promo">
+                <div class="promo-header">
+                    <h2>✨ {{ promo.name }} ✨</h2>
+                    <p>{{ promo.description }}</p>
+                    <p>🪙  {{ promo.coins }} + 💎 {{ promo.bonus_coins }}</p>
+                </div>
+                <div class="promo-price">
+                    <span class="current-price">{{ promo.price }} MRU</span>
+                </div>
+            </div>
+            {% endfor %}
+    {% else %}
+        <p>No active promotions available at the moment.</p>
+    {% endif %}
+</div>
+
+
+
+
+
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
