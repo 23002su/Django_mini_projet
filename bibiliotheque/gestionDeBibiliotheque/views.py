@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password,check_password
 from django.http import HttpResponse,HttpResponseRedirect
-from django.urls import reverse
 from .models import *
 from django.db.models import Prefetch
 
@@ -26,7 +25,7 @@ def regester(request):
         tel=request.POST['tel']
         age=request.POST['age']
         password=make_password(request.POST['password'])
-        user=Clients(nom=nom,prenom=prenom,email=email,password=password,tel=tel,age=age,role='admin')
+        user=Clients(nom=nom,prenom=prenom,email=email,password=password,tel=tel,age=age)
         user.save()
         return HttpResponse("user est insert ")
 def login(request):
@@ -38,21 +37,10 @@ def login(request):
         user=Clients.objects.filter(email=email).first()
         if user:
             if check_password(password,user.password):
-<<<<<<< HEAD
                 return redirect('displayBooks')
-=======
-                if user.role=='user':
-                    request.session['user']='user'
-                    return HttpResponseRedirect(reverse('displayBooks'))
-                else:
-                    request.session['user']='admin'
-                    return HttpResponseRedirect("/admin_system")
->>>>>>> 59b96bbeeefe527ea9d3518af92a18965ae22530
             else:
-                return  render(request,'login.html',{'message':"password n'est pas corecte "})
-                # return HttpResponse("password n'est pas corecte ")
+                return HttpResponse("no")
         else:
-<<<<<<< HEAD
             return HttpResponse("no")
         
         
@@ -163,10 +151,3 @@ def login(request):
     #     price=29.99 * 37,  # Converted to MRU
     #     is_active=True
     # )
-=======
-            return  render(request,'login.html',{'message':"user n'est pas enregestre"})
-            # return HttpResponse("user n'est pas enregestre")
-def logout(request):
-    # request.session.flush()
-    return HttpResponse("deconection")
->>>>>>> 59b96bbeeefe527ea9d3518af92a18965ae22530

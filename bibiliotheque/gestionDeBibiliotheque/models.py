@@ -20,7 +20,6 @@ class Clients(models.Model):
     prenom = models.CharField(max_length=55)
     email=models.CharField(max_length=255,default='')
     password=models.CharField(max_length=255,default='')
-    role=models.CharField(max_length=80,default='user')
     tel = models.IntegerField(max_length=8)
     age = models.IntegerField(max_length=5)
     nb_livre=models.IntegerField(default=0)
