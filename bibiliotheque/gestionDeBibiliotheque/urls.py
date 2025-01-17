@@ -6,4 +6,5 @@ urlpatterns = [
     path("coins/purchase",views.CoinsPromodisplay,name="CoinsPromodisplay"),
     path("regester",views.regester,name="regester"),
     path("login",views.login,name="login"),
+    path("deconenction", views.logout, name="logout"),
 ]

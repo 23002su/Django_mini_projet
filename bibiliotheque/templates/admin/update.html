@@ -39,27 +39,27 @@
 <body>
     
     <div class="container">
-        <h2 class="text-center mb-4">Book Submission Form</h2>
+        <h2 class="text-center mb-4">udate livre</h2>
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             
             <div class="mb-3">
                 <label for="titre" class="form-label">Title</label>
-                <input type="text" class="form-control" id="titre" name="titre" placeholder="Enter book title" required>
+                <input type="text" class="form-control" id="titre" name="titre" placeholder="Enter book title" required value="{{livre.titre}}">
             </div>
             
             <div class="mb-3">
-                <label for="auteur" class="form-label">Author</label>
-                <input type="text" class="form-control" id="auteur" name="auteur" placeholder="Enter author's name" required>
+                <label for="auteur" class="form-label" >Author</label>
+                <input type="text" class="form-control" id="auteur" name="auteur" placeholder="Enter author's name" required value="{{livre.auteur}}">
             </div>
             <div class="mb-3">
                 <label for="genre" class="form-label">genre</label>
-                <input type="text" class="form-control" id="genre" name="genre" placeholder="Enter author's name" required>
+                <input type="text" class="form-control" id="genre" name="genre" placeholder="Enter author's name" required value="{{livre.genre}}">
             </div>
             
             <div class="mb-3">
                 <label for="date_publication" class="form-label">Publication Date</label>
-                <input type="date" class="form-control" id="date_publication" name="date_publication" required>
+                <input type="date" class="form-control" id="date_publication" name="date_publication" value="{{livre.date_publication}}" required>
             </div>
             
             <div class="mb-3">
@@ -69,7 +69,7 @@
             
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter a short description of the book" required></textarea>
+                <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter a short description of the book" required>{{livre.description}}</textarea>
             </div>
             
             <button type="submit" class="btn btn-submit w-100">Submit</button>
