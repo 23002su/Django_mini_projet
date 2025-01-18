@@ -80,7 +80,10 @@
             text-decoration: underline;
         }
         .gg{
-            background-color: red;
+            padding: 10px 10px;
+            color:#fff;
+            font-size: 25px;
+            background-color:#dc6767;
         }
     </style>
 </head>
@@ -97,14 +100,15 @@
                 <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
-            <div class="form-text">
-                <span>Don't have an account?</span> <a href="{% url 'regester' %}">Register here</a>
-            </div>
             {% if message %}
             <div class="form-text gg">
                {{message}}
             </div>
             {% endif %}
+            <div class="form-text">
+                <span>Don't have an account?</span> <a href="{% url 'regester' %}">Register here</a>
+            </div>
+            
         </form>
     </div>
 

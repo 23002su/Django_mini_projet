@@ -11,6 +11,7 @@ class Livre(models.Model):
     date_publication = models.DateField()
     couverture = models.ImageField(upload_to='book_covers/',default='book_covers/default.jpg')
     status=models.CharField(max_length=255,default='disponible')
+    nbr_point_liver=models.IntegerField(default=50)
     
     
         
@@ -23,6 +24,7 @@ class Clients(models.Model):
     tel = models.IntegerField()
     age = models.IntegerField()
     nb_livre=models.IntegerField(default=0)
+    nbr_point=models.IntegerField(default=200)
     
         
 
