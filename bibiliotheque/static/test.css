@@ -125,14 +125,16 @@ header .navbtn a{
 }
 .content{
     margin-left: 20px;
-    background-color:#399ba0;
+    background-color: #4dc9c4;
+    /* background-color:#399ba0; */
     width: 85%;
     height: 690px;
     /* height: 600px; */
     margin-right: 20px;
 }
 .tete{
-    background-color: #399ba0;
+    background-color: #4dc9c4;
+    /* background-color: #399ba0; */
     color: white;
     height: 80px;
 }
@@ -157,7 +159,8 @@ header .navbtn a{
     /* background-color: #399ba0; */
 }
 .sidbar ul li:hover{
-    background-color: #399ba0;
+    background-color: #4dc9c4;
+    /* background-color: #399ba0; */
 }
 .sidbar ul li a{
     text-decoration: none;

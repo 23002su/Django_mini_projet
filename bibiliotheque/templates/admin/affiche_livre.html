@@ -43,13 +43,14 @@ tr{
 }
 td{
     text-align: center;
-    border-top: 16px solid #399ba0;
+    
+    border-top: 16px solid #4dc9c4;
     
 }
 th{
     font-size: 24px;
     text-align: center;
-    border-top: 16px solid #399ba0;
+    border-top: 16px solid #4dc9c4;
 
     /* border-radius: 10px; */
     
@@ -103,6 +104,11 @@ font-size: 26px;
 
 .nav_paginator .page-link span {
   font-size: 18px;
+}
+img{
+  width: 60px;
+  height: 60px;
+  border-radius: 7px;
 }
 
 
@@ -178,6 +184,7 @@ font-size: 26px;
     <table>
         <tr>
            
+        <th>photo</th>
         <th class="th1">titre</th>
         <th>description</th>
         <th>auteur</th>
@@ -190,6 +197,8 @@ font-size: 26px;
     
         {% for liver in livres %}
         <tr>
+          
+        <td><img src="{{liver.couverture.url }}" alt="photo"></td>
         <td class="td1">{{liver.titre}}</td>
         <td>{{liver.description}}</td>
         <td>{{liver.auteur}}</td>
