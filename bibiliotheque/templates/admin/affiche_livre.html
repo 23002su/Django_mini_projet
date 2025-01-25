@@ -14,7 +14,7 @@
 .navbtn a{
     color: #fff;
     font-size: 24px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     text-decoration: none;
 }
 .navbtn:hover{
@@ -201,6 +201,8 @@ img{
         <th>auteur</th>
         <th>date_publication</th>
         <th>genre</th>
+        <th>count</th>
+        <th>status</th>
         <th>action</th>
         
   
@@ -215,6 +217,8 @@ img{
         <td>{{liver.auteur}}</td>
         <td>{{liver.date_publication}}</td>
         <td>{{liver.genre}}</td>
+        <td>{{liver.count}}</td>
+        <td>{{liver.status}}</td>
         <td>
           <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal{{liver.id}}">
             <ion-icon name="create-outline" class="icon"></ion-icon>

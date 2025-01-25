@@ -1,7 +1,7 @@
 {% extends 'admin/test.html' %}
 {% block css %}
 <style>
-    .navbtn{
+       .navbtn{
         background-color: #7C3F58; /* Purple button color */
         color: white;
         border: none;
@@ -9,11 +9,12 @@
         border-radius: 25px;
         font-size: 18px;
         cursor: pointer;
+        display: none;
     }
     .navbtn a{
         color: #fff;
-        font-size: 24px;
-        /* text-transform: uppercase; */
+        font-size: 18px;
+        
         text-decoration: none;
     }
     
@@ -50,7 +51,7 @@
         
     }
     .btn .icon{
-    font-size: 26px;
+    font-size: 18px;
     }
     .nav_paginator .pagination {
   border-radius: 30px;
@@ -103,72 +104,46 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;}
    
-}
-    </style>
+</style>
 {% endblock %}
 {% block content %}
-<table >
-    <tr>
-       
-    <th>email</th>
-    <th>nom</th>
-    <th>date_emprunt</th>
-    <th>date_retour_effective</th>
-    <th>status</th>
-    <th>actions</th>
-    
-
-
-</tr>
-
-
-
-    {% for liver in list_liver %}
-    
-    <tr>
-       
-      <td>{{liver.id_client.email}}</td>
-      <td>{{liver.id_livre.titre}}</td>
-    
-    <td>{{liver.date_emprunt}}</td>
-    
-    <td>{{liver.date_retour_prevue}}</td>
-    <td>{{liver.status}}</td>
-    <td><a href="{% url 'changeetat' liver.id %}">change_etat</a></td>
-    
- 
-</tr>
-
-    {% endfor %}
-
-</table>
-<div class="hhh">
-    <div><nav aria-label="Page navigation example" class="nav_paginator">
-        <ul class="pagination justify-content-center">
-          {% if livres.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{list_liver.previous_page_number}}" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          {% endif %}
-          
-          {% for i in list_liver.paginator.page_range %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{i}}">{{i}}</a>
-          </li>
-          {% endfor %}
-          
-          {% if livres.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{list_liver.next_page_number}}" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav></div>
+<div class="container">
+   
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Promo</th>
+                <th>Payment Proof</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for purchase in unvalidated_purchases %}
+            <tr>
+                <td>{{ purchase.client.email }}</td>
+                <td>{{ purchase.coins_promo.name }}</td>
+                <td>
+                    <a href="{{ purchase.payment_proof.url }}" target="_blank">
+                        <img src="{{ purchase.payment_proof.url }}" alt="Payment Proof" style="width: 100px;">
+                    </a>
+                </td>
+                <td>
+                    <form method="post" action="{% url 'validate_purchase' purchase.id %}">
+                        {% csrf_token %}
+                        <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
+                        <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No unvalidated purchases.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

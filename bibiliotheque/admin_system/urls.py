@@ -15,4 +15,5 @@ urlpatterns=[
     path('ajoute_clients',views.ajoute_clients,name='ajoute_clients'),
     path('delete_clients/<id>',views.delete_clients,name='delete_clients'),
     path('changeetat/<id>',views.changeetat,name='changeetat'),
+    path('payemnet',views.hh,name='payemnet'),
 ]

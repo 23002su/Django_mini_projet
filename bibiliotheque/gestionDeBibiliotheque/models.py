@@ -50,4 +50,8 @@ class CoinsPromo(models.Model):
 class Purchase(models.Model):
     client = models.ForeignKey(Clients, on_delete=models.CASCADE)
     coins_promo = models.ForeignKey(CoinsPromo, on_delete=models.CASCADE)  # Total cost of the purchase
-    purchase_date = models.DateTimeField(auto_now_add=True)        
+    purchase_date = models.DateTimeField(auto_now_add=True) 
+    validated = models.BooleanField(default=False) 
+    payment_proof = models.ImageField(upload_to='payment_proofs/', null=True, blank=True)  # Store the payment proof image
+    is_verified = models.BooleanField(default=False)  # Whether the payment proof is verified
+    is_valid = models.BooleanField(default=False)  # Whether the payment proof is valid

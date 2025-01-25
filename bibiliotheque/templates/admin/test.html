@@ -7,17 +7,7 @@
     <title>Book Form</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'test.css' %}">
-    <style>
-      .tete{
-    background-color: #4dc9c4;
-    /* background-color: #399ba0; */
-    color:black;
-    /* font-family: Arial, Helvetica, sans-serif; */
-    font-size: large;
-    height: 80px;
-    text-align: center;
-}
-    </style>
+   
     {% block css%}
     {% endblock%}
   
@@ -37,12 +27,12 @@
         <nav>
            
             <a href="{%url 'affiche_livre'%}">Livres</a>
-            <a href="#">payement</a>
+            <a href="#">Manage</a>
         </nav>
     </div>
 
-    <button type="button" class="btn btn-primary navbtn">
-      {% if admin %}
+    <button type="button" class="btn navbtn">
+      {% if admin_conect %}
       <a href="{% url 'deconection' %}">logout</a>
       {% else %}
       <a href="{% url 'login' %}">login</a>
@@ -55,13 +45,13 @@
 <div class="tout">
   
   <div class="sidbar">
-    <div class="tete"><h3> Crude operation </h3></div>
+    <div class="tete"><h3> <p>CRUD</p>Operations </h3></div>
     
     <ul>
       <li><a href="{%url 'affiche_liver_emprente'%}"><ion-icon name="home-outline" class="icone"></ion-icon><span>Admins</span></a></li>
       <li><a href="{%url 'affiche_cliens'%}"><ion-icon name="people-outline"class="icone"></ion-icon><span>Clients</span></a></li>
       <li><a href="{%url 'affiche_livre'%}"><ion-icon name="book-outline" class="icone"></ion-icon><span>Books</span></a></li>
-      <li><a href="http://"><ion-icon name="diamond-outline" class="icone"></ion-icon><span>payement</span></a></li>
+      <li><a href="{% url 'payemnet' %}"><ion-icon name="diamond-outline" class="icone"></ion-icon><span>payement</span></a></li>
     </ul>
   </div>
 <div class="content">
