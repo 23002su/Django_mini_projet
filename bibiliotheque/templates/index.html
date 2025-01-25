@@ -1,196 +1,11 @@
+{% extends 'main.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    {% block css %}
     <style>
-        
-        .model1 {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            width: 600px;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            z-index: 1000;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-
-        .model1 h2 {
-            font-size: 24px;
-            margin: 20px 0;
-            color: #333;
-            font-weight: 600;
-        }
-
-        .model1 p {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .model1 button {
-            background-color: #ff5c5c;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .model1 button:hover {
-            background-color: #e04e4e;
-            transform: scale(1.05);
-        }
-
-        .img {
-            display: flex;
-            justify-content: space-evenly;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .img img {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        .img img:hover {
-            transform: scale(1.2);
-        }
-        .btn_clos{
-            position: absolute;
-            top: -1px;
-            right: -1px;
-        }
-        .btn_clos {
-            
-            background-color: #fff;
-            
-            /* background-color: #e6e6e6; */
-            border: none;
-            font-size: 22px;
-            /* color: #d4c8c8; */
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 50%;
-            transition: background-color 0.3s ease;
-        }
-
-        
-/*----------start header design--------------*/        
-        body {
-            /*font-family: 'Inter', sans-serif;*/
-            background-color: #F8F3E5; /* Light beige background */
-            color: #4B3F2F; /* Dark brown text color */
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #4B3F2F; /* Dark brown header */
-            padding: 0px 40px;
-            color: white;
-            height:65px;
-        }
-
-        header .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        /* Wrapper for alignment and scaling */
-        header .logo .wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 50px; /* Adjust this value to resize the design */
-            height: 60px; /* Maintain a proportionate height */
-            
-        }
-
-        /* Container for the cards */
-        header .logo .wrapper .card-container {
-            position: relative;
-            width: 100%; /* Fills the width of the wrapper */
-            height: 100%; /* Fills the height of the wrapper */
-        }
-
-        /* Shared Card Styles */
-        header .logo .wrapper .card-container .card {
-            position: absolute;
-            width: 80%; /* Relative to the container width */
-            height: 80%; /* Relative to the container height */
-            border-radius: 5%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        /* Card 1 (Light Teal) */
-        header .logo .wrapper .card-container .card1 {
-            background-color: #4dc9c4;
-            transform: rotate(-10deg) translateX(-20%);
-            z-index: 1;
-        }
-
-        /* Card 2 (Medium Teal) */
-        header .logo .wrapper .card-container .card2 {
-            background-color: #399ba0;
-            transform: rotate(0deg);
-            z-index: 2;
-        }
-
-        /* Card 3 (Dark Teal) */
-        header .logo .wrapper .card-container .card3 {
-            background-color: #2e6d7d;
-            transform: rotate(10deg) translateX(20%);
-            z-index: 3;
-        }
-
-        /* Hover effect for interactivity */
-        header .logo .wrapper .card-container .card:hover {
-            transform: scale(1.05);
-        }
-
-        header .logo p{
-            margin-left: 20px;
-            text-decoration: none;
-            color: white;
-            font-size: 28px;
-        }
-        header .logo nav{
-            padding-left: 90px;
-        }
-        header .logo nav a {
-            margin-left: 30px;
-            text-decoration: none;
-            color: white;
-            font-size: 20px;
-        }
-
-        header .navbtn {
-            background-color: #7C3F58;
-            text-decoration: none; /* Purple button color */
-            color: white;
-            border: none;
-            padding: 8px 50px;
-            border-radius: 25px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-/*----------end header design--------------*/
 
 
 /*----------start search bar design--------------*/
@@ -211,6 +26,8 @@
 /*----------end search bar design--------------*/        
         
 
+
+
 /*----------start book display design--------------*/
         .booksCon{
             display: flex;
@@ -227,7 +44,7 @@
             width: 400px;
         }
         .bookCoverCon{
-            width: 130px; /* Set the desired width */
+            width: 160px; /* Set the desired width */
             aspect-ratio: 2 / 3; /* Common aspect ratio for book covers (width:height) */
             overflow: hidden; /* Hide any overflowing content */
             border: 1px solid #ddd; /* Optional: border for aesthetics */
@@ -258,7 +75,7 @@
         }
         .descCon{
             display: -webkit-box;
-            -webkit-line-clamp: 1; /* Number of lines to show */
+            -webkit-line-clamp: 2; /* Number of lines to show */
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis; /* Adds "..." at the end of truncated text */
@@ -281,7 +98,7 @@
             overflow: auto; /* Enable scroll if needed */
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
-        
+
         .modal-box {
             background-color: #F8F3E5;
             margin: 10% auto; /* Center the modal */
@@ -292,26 +109,44 @@
             border-radius: 10px; /* Rounded corners */
             box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Shadow for depth */
         }
-        
+        .modal-box2{
+            background-color: #F8F3E5;
+            margin: 10% auto;
+            padding: 30px 60px;
+            border: 1.5px solid #4B3F2F;
+            width: 60%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-size: 23px;
+        }
+
+        .modal-box2 .modalBtns {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+
         .close-icon {
             color: #aaa;
             float: right;
             font-size: 40px;
             font-weight: bold;
         }
-        
+
         .close-icon:hover,
         .close-icon:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
         }
-        
+
         .modal-details {
             display: flex;
             gap: 20px;
         }
-        
+
         .modal-cover{
             width: 130px; /* Set the desired width */
             aspect-ratio: 2 / 3; /* Common aspect ratio for book covers (width:height) */
@@ -333,22 +168,22 @@
             display: block;
             
         }
-        
+
         .modal-info {
             flex: 1;
         }
-        
+
         .modal-info h2 {
             margin: 0;
             font-size: 24px;
             color: #4B3F2F;
         }
-        
+
         .modal-info p {
             margin: 5px 0;
             color: #4B3F2F;
         }
-        
+
         .borrow-status {
             margin-top: 20px;
             padding: 10px;
@@ -357,78 +192,29 @@
             border-radius: 5px;
             text-align: center;
         }
-        
+
         .borrow-btn {
             background-color: #7C3F58; /* Purple button color */
             color: white;
             border: none;
-            width: 200px;
-            height: 50px;
+            width: 150px;
+            height: 30px;
             padding: 10px 20px;
             border-radius: 25px;
             font-size: 16px;
             cursor: pointer;
-            display: block;
-            margin: 20px auto 0 auto;
-        }
-        .emprent{
             display: flex;
             align-items: center;
-            justify-content:space-between;
-        }
-
-        .b p{
-            width: fit-content;
-            margin-top: 10px;
-            border-bottom: 2px solid #333;
-
-            /* background-color: #399ba0; */
-            font-size: 27px;
-            
-            color: #333;
-            font-weight: 100;
-        }
-        .b a{
-            color: #fff;
-            text-decoration: none;
+            justify-content: center;
+            margin: 20px auto 0 auto;
         }
 /*----------start modal design--------------*/        
     </style>
+    {% endblock %}
 </head>
 <body>
 
-<!-- Header Section start -->
-    <header>
-        <div class="logo">
-            <div class="wrapper">
-                <div class="card-container">
-                    <div class="card card1"></div>
-                    <div class="card card2"></div>
-                    <div class="card card3"></div>
-                </div>
-            </div> <!-- Replace with your logo -->
-            <p>The Ink Haven</p>
-            <nav>
-                <a href="{% url 'displayBooks' %}">Books</a>
-                <a href="#">My books</a>
-            </nav>
-        </div>
-
-      
-        {% if user_conect %}
-
-        <a href="{% url 'logout' %}" class="navbtn">logout</a>
-    {% else %}
-        <a href="{% url 'login' %}" class="navbtn">Login</a>
-    {% endif %}
-   
-    
-        
-   
-        
-
-    </header>
-<!-- Header Section end -->
+{% block content %}
 
 
 <!-- Search Bar start -->
@@ -436,6 +222,8 @@
         <input type="text" placeholder="Recherchez votre livre">
     </div>
 <!-- Search Bar end -->    
+
+
 
 <!-- Book display start -->
     <div class="booksCon">
@@ -445,14 +233,23 @@
                 <img src="{{ livre.couverture.url }}" alt="photo">
             </div>
             <div class="bookInfoCon">
-                <h2 class="titlelines" title="{{ livre.titre }}"><a href="{% url 'ClickedBook' id=livre.id %}">{{ livre.titre }}</a></h2>
+                <h2 class="titlelines" title="{{ livre.titre }}">
+                    <a href="javascript:void(0)" 
+                    class="open-modal" 
+                    data-id="{{ livre.id }}" 
+                    data-title="{{ livre.titre }}" 
+                    data-author="{{ livre.auteur }}" 
+                    data-genre="{{ livre.genre }}" 
+                    data-date="{{ livre.date_publication }}" 
+                    data-description="{{ livre.description }}" 
+                    data-cover="{{ livre.couverture.url }}">
+                    {{ livre.titre }}
+                    </a>
+                </h2>
                 <p>{{ livre.auteur }}</p>
                 <p>{{ livre.genre }}</p>
                 <p>{{ livre.date_publication }}</p>
                 <p class="descCon" title="{{ livre.description }}">{{ livre.description }}</p>
-                
-
- 
             </div>
         </div>
         {% endfor %}
@@ -460,65 +257,134 @@
 <!-- Book display end -->
 
 <!-- Book modal start -->
-    {% if selectedbook %}
-    <div id="bookBorrowModal" class="modal-wrapper">
+    <div id="bookBorrowModal" class="modal-wrapper" style="display: none;">
         <div class="modal-box">
-            <a href="{% url 'cancel' %}"><span class="close-icon">&times;</span></a>
+            <span id="bookmodalcloseicon" class="close-icon book-modal-close">×</span>
             <div class="modal-details">
                 <div class="modal-cover">
-                    <img src="{{ selectedbook.couverture.url }}" alt="Book Cover">
+                    <img id="modal-cover" src="/media/book_covers/a_little_life.jpg" alt="Book Cover">
                 </div>
                 <div class="modal-info">
-                    <h1>{{ selectedbook.titre }}</h1>
-                    <p><strong>Auteur:</strong> {{ selectedbook.auteur }}</p>
-                    <p><strong>Genre:</strong> {{ selectedbook.genre }}</p>
-                    <p><strong>Date de Publication:</strong> {{ selectedbook.date_publication }}</p>
-                    <p><strong>Description:</strong> {{ selectedbook.description }}</p>
-                    {% if nbr_point %}
-                   
-                    <p><strong>nbr_point:</strong> {{ nbr_point }}</p>
-                    {% endif %}
-
-                    
+                    <h1 id="modal-title">A Little Life</h1>
+                    <p><strong>Auteur:</strong> <span id="modal-author">Hanya Yanagihara</span></p>
+                    <p><strong>Genre:</strong> <span id="modal-genre">Contemporary Fiction</span></p>
+                    <p><strong>Date de Publication:</strong> <span id="modal-date">March 10, 2015</span></p>
+                    <p><strong>Description:</strong> <span id="modal-description">A heartbreaking novel following four college friends in New York City as they navigate ambition, relationships, and trauma over decades.</span></p>
                 </div>
             </div>
-            <div class="emprent">
-                <div class="b">
-                    <p>emprente avec livreson </p>
-                    <button class="borrow-btn"><a href="{% url 'emprent_avec_livreson' selectedbook.id %}">Emprunter</a></button>
-                </div>
-                <div class="b">
-                    <p>emprente sans livreson </p>
-                    <button class="borrow-btn"><a href="{% url 'emprent_liver' selectedbook.id %}">Emprunter</a></button>
-                </div>
-               
-               
-            </div>
-           
-        </div>
-       
-    </div>
-    {% endif %}
-    {%if vide %}
-    <div class="model1">
-       <a href="{% url 'cancel' %} "class="btn_clos"><span class="close-icon">&times;</span></a>
-        
-        <div class="conten">
-            <div class="img">
-                <img src="{% static 'icone.png' %}" alt="Icon 1">
-                <img src="{% static 'icone.png' %}" alt="Icon 2">
-                <img src="{% static 'icone.png' %}" alt="Icon 3">
-                <img src="{% static 'icone.png' %}" alt="Icon 4">
-                <img src="{% static 'icone.png' %}" alt="Icon 5">
-            </div>
-            <h2>5arase 3ourode</h2>
+            <div class="borrow-btn" id="borrowbtn"><p>Borrow</p></div>
             
-            <button><a href="{% url 'cancel' %}">click</button>
         </div>
     </div>
-    {% endif %}
-
 <!-- Book modal end -->
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<!--start borrow modal-->
+    <div id="BorrowModal" class="modal-wrapper" style="display:none;">
+        <div class="modal-box2">
+            <span id="closeIcon" class="close-icon">×</span>
+            <p>Do you like the book to be delivered to you?</p>
+            <p>It will cost you 🪙 15 coins 🪙</p>
+            <div class="modalBtns">
+                <a id="noThanksLink" href="/emprent_liver/3">
+                    <div class="borrow-btn"><p>No, thanks</p></div>
+                </a>
+                <a id="yesPleaseLink" href="/emprent_avec_livreson/3">
+                    <div class="borrow-btn"><p>Yes, please</p></div>
+                </a>
+            </div>
+        </div>
+    </div>
+<!--start borrow modal-->
+
+<!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const modalCover = document.getElementById("modal-cover");
+            const modalTitle = document.getElementById("modal-title");
+            const modalAuthor = document.getElementById("modal-author");
+            const modalGenre = document.getElementById("modal-genre");
+            const modalDate = document.getElementById("modal-date");
+            const modalDescription = document.getElementById("modal-description");
+            const bookModal = document.getElementById("bookBorrowModal");
+            const bookmodalcloseicon = document.getElementById("bookmodalcloseicon");
+        
+            const borrowbtn = document.getElementById("borrowbtn");
+            const borrowModal = document.getElementById("BorrowModal");
+            const closeIcon = document.getElementById("closeIcon");
+            const noThanksLink = document.getElementById("noThanksLink"); // Target the "No, thanks" link
+            const yesPleaseLink = document.getElementById("yesPleaseLink"); // Target "Yes, please" link
+        
+            let currentBookId = -1; // Variable to store the current book ID
+        
+            // Open book modal and set the book ID
+            document.querySelectorAll(".open-modal").forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const { id, cover, title, author, genre, date, description } = link.dataset;
+        
+                    // Populate modal with book data
+                    modalCover.src = cover;
+                    modalTitle.textContent = title;
+                    modalAuthor.textContent = author;
+                    modalGenre.textContent = genre;
+                    modalDate.textContent = date;
+                    modalDescription.textContent = description;
+        
+                    // Store the current book ID
+                    currentBookId = id;
+        
+                    // Show the book modal
+                    bookModal.style.display = "block";
+                });
+            });
+        
+            // Open borrow modal
+            borrowbtn.addEventListener("click", () => {
+                console.log("Borrow button clicked!");
+                if (currentBookId) {
+                    // Set the href dynamically with the current book ID
+                    noThanksLink.href = `/emprent_liver/${currentBookId}` ;
+                    yesPleaseLink.href = `/emprent_avec_livreson/${currentBookId}`;
+        
+                    // Add event listeners to handle navigation programmatically
+                    noThanksLink.addEventListener("click", async (event) => {
+                        event.preventDefault(); // Prevent default link behavior
+                        const url = `/emprent_liver/${currentBookId}`;
+                        await fetch(url); // Send request to the server
+                        window.location.href = "/"; // Navigate to the new URL
+                    });
+        
+                    yesPleaseLink.addEventListener("click", async (event) => {
+                        event.preventDefault(); // Prevent default link behavior
+                        const url = `/emprent_avec_livreson/${currentBookId}`;
+                        await fetch(url); // Send request to the server
+                        window.location.href = "/"; // Navigate to the new URL
+                    });
+                }
+                borrowModal.style.display = "";
+                bookModal.style.display = "none";
+            });
+        
+            // Close borrow modal
+            closeIcon.addEventListener("click", () => {
+                borrowModal.style.display = "none";
+            });
+        
+            bookmodalcloseicon.addEventListener("click", () => {
+                bookModal.style.display = "none";
+            });
+        
+            // Close borrow modal on clicking outside
+            window.addEventListener("click", (event) => {
+                if (event.target === borrowModal) {
+                    borrowModal.style.display = "none";
+                } else if (event.target === bookModal) {
+                    bookModal.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+
+{% endblock %}
 </body>
 </html>

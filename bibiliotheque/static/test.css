@@ -135,8 +135,9 @@ header .navbtn a{
 .tete{
     background-color: #4dc9c4;
     /* background-color: #399ba0; */
-    color: white;
+    color:black;
     height: 80px;
+    text-align: center;
 }
 .tete h3{
     text-transform:uppercase;

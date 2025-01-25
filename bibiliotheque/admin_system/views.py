@@ -112,4 +112,17 @@ def deconection(request):
     request.session.flush()
     return HttpResponseRedirect('/login')
 def affiche_liver_emprente(request):
-    pass
+    list_empret=Emprunt.objects.filter(status='indisponible').all()
+    paginator = Paginator(list_empret, 4)   
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request,'admin/affiche_le_liver_emprente.html',{'list_liver':page_obj})
+def changeetat(request,id):
+    liver_emp=Emprunt.objects.filter(id=id).first()
+    liver_emp.status='disponible'
+    id_liver=liver_emp.id_livre.id
+    liver=Livre.objects.filter(id=id_liver).first()
+    liver.count+=1
+    liver.save()
+    liver_emp.save()
+    return HttpResponseRedirect(reverse('affiche_liver_emprente'))

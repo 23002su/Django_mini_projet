@@ -41,6 +41,7 @@ td{
     border-top: 16px solid #4dc9c4;
     /* border-radius: 10px; */
 }
+
 th{
     font-size: 24px;
     text-align: center;
@@ -132,8 +133,10 @@ font-size: 26px;
 
 
     {% for client in clients %}
+    
     <tr>
-    <td>{{client.nom}}</td>
+      <td>{{client.nom}}</td>
+    
     <td>{{client.prenom}}</td>
     <td>{{client.email}}</td>
     <td>{{client.tel}}</td>
@@ -204,6 +207,7 @@ font-size: 26px;
 
     <!-- <th>{{liver.genre}}</th> -->
 </tr>
+
     {% endfor %}
 
 </table>

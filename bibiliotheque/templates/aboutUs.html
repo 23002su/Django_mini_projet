@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Most Borrowed Books</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container h1 {
+            color: #f4f4f4;
+            margin-bottom: 20px;
+        }
+
+        .carousel {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 100%;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .book-section {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 10px;
+        }
+
+        .book-section::-webkit-scrollbar {
+            display: none;
+        }
+
+        .book-cover {
+            flex-shrink: 0;
+            width: 200px;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+            background-color: #333;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-cover:hover {
+            transform: scale(1.1);
+        }
+
+        .scroll-btn {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .left-btn {
+            left: 10px;
+        }
+
+        .right-btn {
+            right: 10px;
+        }
+
+        .scroll-btn:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Top 10 Most Borrowed Books</h1>
+        <div class="carousel">
+            <button class="scroll-btn left-btn">&lt;</button>
+            <div class="book-section" id="book-section">
+                {% for livre in livres %}
+                    <div class="book-cover">
+                        <img src="{{ livre.couverture.url }}" alt="{{ livre.titre }}">
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="scroll-btn right-btn">&gt;</button>
+        </div>
+    </div>
+    <script>
+        // Add functionality to scroll buttons
+        function addScrollListeners() {
+            const bookSection = document.getElementById("book-section");
+            const leftBtn = document.querySelector(".left-btn");
+            const rightBtn = document.querySelector(".right-btn");
+
+            leftBtn.addEventListener("click", () => {
+                bookSection.scrollBy({
+                    left: -300,
+                    behavior: "smooth",
+                });
+            });
+
+            rightBtn.addEventListener("click", () => {
+                bookSection.scrollBy({
+                    left: 300,
+                    behavior: "smooth",
+                });
+            });
+        }
+
+        // Initialize the carousel
+        addScrollListeners();
+    </script>
+</body>
+</html>

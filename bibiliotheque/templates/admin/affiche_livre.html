@@ -33,7 +33,7 @@ tr{
     /* display: block; */
     /* margin-bottom: 15px; */
     background-color: #fff;
-    height: 90px;
+    height: 100px;
     width: 100%;
     border-radius: 10px;
    /* border: #2e6d7d; */
@@ -112,6 +112,17 @@ img{
 }
 
 
+.nav_paginator .page-link span {
+  font-size: 18px;
+}
+.hhh{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
 </style>
 {% endblock %}
 
@@ -186,7 +197,7 @@ img{
            
         <th>photo</th>
         <th class="th1">titre</th>
-        <th>description</th>
+        <!-- <th>description</th> -->
         <th>auteur</th>
         <th>date_publication</th>
         <th>genre</th>
@@ -200,7 +211,7 @@ img{
           
         <td><img src="{{liver.couverture.url }}" alt="photo"></td>
         <td class="td1">{{liver.titre}}</td>
-        <td>{{liver.description}}</td>
+        <!-- <td>{{liver.description}}</td> -->
         <td>{{liver.auteur}}</td>
         <td>{{liver.date_publication}}</td>
         <td>{{liver.genre}}</td>
@@ -276,31 +287,34 @@ img{
         {% endfor %}
     
     </table>
-    <nav aria-label="Page navigation example" class="nav_paginator">
-      <ul class="pagination justify-content-center">
-        {% if livres.has_previous %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{livres.previous_page_number}}" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        {% endif %}
-        
-        {% for i in livres.paginator.page_range %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{i}}">{{i}}</a>
-        </li>
-        {% endfor %}
-        
-        {% if livres.has_next %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{livres.next_page_number}}" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-    </nav>
+    <div class="hhh">
+      <nav aria-label="Page navigation example" class="nav_paginator">
+        <ul class="pagination justify-content-center">
+          {% if livres.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{livres.previous_page_number}}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {% endif %}
+          
+          {% for i in livres.paginator.page_range %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{i}}">{{i}}</a>
+          </li>
+          {% endfor %}
+          
+          {% if livres.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{livres.next_page_number}}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  
     
     {% endblock %}
    

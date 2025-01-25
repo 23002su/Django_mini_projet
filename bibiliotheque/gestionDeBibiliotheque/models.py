@@ -12,6 +12,7 @@ class Livre(models.Model):
     couverture = models.ImageField(upload_to='book_covers/',default='book_covers/default.jpg')
     status=models.CharField(max_length=255,default='disponible')
     nbr_point_liver=models.IntegerField(default=50)
+    count=models.IntegerField(default=1)
     
     
         
@@ -34,5 +35,19 @@ class Emprunt(models.Model):
     date_emprunt = models.DateField()
     date_retour_prevue = models.DateField()
     date_retour_effective = models.DateField(null=True)
+    status=models.CharField(max_length=255,default='indisponible')
     
     
+class CoinsPromo(models.Model):
+    name = models.CharField(max_length=100, blank=True)
+    description = models.TextField(blank=True, null=True)
+    coins = models.PositiveIntegerField(default=0)
+    bonus_coins = models.PositiveIntegerField(default=0) 
+    price = models.DecimalField(default=0,max_digits=10,decimal_places=2)
+    is_active = models.BooleanField(default=True) 
+    
+
+class Purchase(models.Model):
+    client = models.ForeignKey(Clients, on_delete=models.CASCADE)
+    coins_promo = models.ForeignKey(CoinsPromo, on_delete=models.CASCADE)  # Total cost of the purchase
+    purchase_date = models.DateTimeField(auto_now_add=True)        

@@ -12,8 +12,39 @@ def displayBooks(request):
     if "user" in request.session:
         user_conect=request.session['user']
         return render(request, 'index.html', {'livres': livres, 'user_conect':user_conect })
+    elif "admin" in request.session:
+        admin_conect=request.session['admin']
+        return render(request, 'index.html', {'livres': livres, 'admin_conect':admin_conect })
     else:
         return render(request, 'index.html', {'livres': livres})
+
+def CoinsPromodisplay(request):
+    coins_promos = CoinsPromo.objects.filter(is_active=True)
+    if "user" in request.session:
+        user_conect=request.session['user']
+        return render(request, 'coinsPromo.html', {'coins_promos': coins_promos, 'user_conect':user_conect })
+    elif "admin" in request.session:
+        admin_conect=request.session['admin']
+        return render(request, 'coinsPromo.html', {'coins_promos': coins_promos, 'admin_conect':admin_conect })
+    else:
+        return render(request, 'coinsPromo.html', {'coins_promos': coins_promos})
+
+def myBooks(request):
+    if "user" in request.session:
+        user_conect=request.session["user"]
+        client=Clients.objects.filter(email=user_conect).first()
+        # Get all borrowed books (Emprunt) by the client
+        emprunts = Emprunt.objects.filter(id_client=client)
+        
+        # Extract book IDs from the emprunts queryset
+        book_ids = emprunts.values_list('id_livre', flat=True)
+        
+        # Retrieve books using the extracted IDs
+        books = Livre.objects.filter(id__in=book_ids)
+        
+        return render(request, 'myBooks.html', {'mybooks': books, 'user_conect': user_conect})
+    else:
+        return HttpResponseRedirect(reverse('displayBooks'))
 
 def ClickedBook(request, id):
     livres = Livre.objects.all().filter(status='disponible')
@@ -47,41 +78,57 @@ def regester(request):
         user.save()
         return HttpResponseRedirect(reverse("displayBooks"))
 def emprent_liver(request,id):
-    if "user" in request.session:
+     if "user" in request.session:
         email=request.session['user']
         client=Clients.objects.filter(email=email).first()
         if client.nbr_point==0:
-            livres = Livre.objects.all().filter(status='disponible')
-            return render(request, 'index.html',{'livres':livres,'vide':"vide"})
-        client.nbr_point=client.nbr_point-50
-        date_emprunt=datetime.today().date()
-        date_retour_prevue =datetime.today().date()+timedelta(days=4)
-        livre =Livre.objects.filter(id=int(id)).first()
+            return redirect('CoinsPromodisplay')
         
-        emprenteur=Emprunt(id_client=client,id_livre=livre,date_emprunt=date_emprunt,date_retour_prevue=date_retour_prevue)
-        emprenteur.save()
-
-        client.save()
-        return HttpResponseRedirect(reverse('displayBooks'))
-    else:
+        livre =Livre.objects.filter(id=int(id)).first()
+        if livre.count>0:
+            client.nbr_point=client.nbr_point-livre.nbr_point_liver
+            date_emprunt=datetime.today().date()
+            date_retour_prevue =datetime.today().date()+timedelta(days=4)
+            
+            
+            emprenteur=Emprunt(id_client=client,id_livre=livre,date_emprunt=date_emprunt,date_retour_prevue=date_retour_prevue)
+            emprenteur.save()
+            livre.count-=1
+            client.save()
+            livre.save()
+            return redirect("displayBooks")
+        else:
+           livre.status='indisponible' 
+           livre.save()
+           return redirect("displayBooks")
+     else:
         return HttpResponseRedirect(reverse("login"))
 def emprent_avec_livreson(request,id):
     if "user" in request.session:
         email=request.session['user']
         client=Clients.objects.filter(email=email).first()
         if client.nbr_point==0:
-            livres = Livre.objects.all().filter(status='disponible')
-            return render(request, 'index.html',{'livres':livres,'vide':"vide"})
-        client.nbr_point=client.nbr_point-75
-        date_emprunt=datetime.today().date()
-        date_retour_prevue =datetime.today().date()+timedelta(days=4)
-        livre =Livre.objects.filter(id=int(id)).first()
+            return redirect('CoinsPromodisplay')
+        if livre.count>0:
+            livre =Livre.objects.filter(id=int(id)).first()
+            client.nbr_point=client.nbr_point-(livre.nbr_point_liver+15)
+            date_emprunt=datetime.today().date()
+            date_retour_prevue =datetime.today().date()+timedelta(days=4)
         
-        emprenteur=Emprunt(id_client=client,id_livre=livre,date_emprunt=date_emprunt,date_retour_prevue=date_retour_prevue)
-        emprenteur.save()
+            
+            emprenteur=Emprunt(id_client=client,id_livre=livre,date_emprunt=date_emprunt,date_retour_prevue=date_retour_prevue)
+            emprenteur.save()
 
-        client.save()
-        return HttpResponseRedirect(reverse('displayBooks'))
+            client.save()
+            livre.count-=1
+            client.save()
+            livre.save()
+            
+            return redirect('displayBooks')
+        else:
+                livre.status='indisponible' 
+                livre.save()
+                return redirect("displayBooks")
     else:
         return HttpResponseRedirect(reverse("login"))
     
@@ -101,7 +148,7 @@ def login(request):
                     return HttpResponseRedirect(reverse('displayBooks'))
                 else:
                     request.session['admin']=email
-                    return HttpResponseRedirect("/admin_system")
+                    return HttpResponseRedirect('/admin_system')
             else:
                 return  render(request,'login.html',{'message':"password n'est pas corecte "})
                 # return HttpResponse("password n'est pas corecte ")
@@ -112,3 +159,114 @@ def logout(request):
     # del request.session['user']
     request.session.flush()
     return HttpResponseRedirect(reverse('displayBooks'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# CoinsPromo.objects.create(
+#     name="Welcome Bundle",
+#     description="Get started with our exclusive welcome offer and receive bonus coins to explore!",
+#     coins=500,
+#     bonus_coins=50,
+#     price=4.99 * 37,  # Converted to MRU
+#     is_active=True
+#     )
+
+#     CoinsPromo.objects.create(
+#         name="Weekend Booster Pack",
+#         description="Limited-time offer! Get extra coins and bonus rewards this weekend only.",
+#         coins=1000,
+#         bonus_coins=200,
+#         price=9.99 * 37,  # Converted to MRU
+#         is_active=True
+#     )
+
+#     CoinsPromo.objects.create(
+#         name="Monthly Mega Bundle",
+#         description="Save big with our best-value monthly promotion. Perfect for frequent users!",
+#         coins=5000,
+#         bonus_coins=1000,
+#         price=39.99 * 37,  # Converted to MRU
+#         is_active=True
+#     )
+
+#     CoinsPromo.objects.create(
+#         name="Flash Sale 2X Bonus",
+#         description="Double your rewards during this limited-time flash sale!",
+#         coins=1000,
+#         bonus_coins=1000,
+#         price=14.99 * 37,  # Converted to MRU
+#         is_active=True
+#     )
+
+#     CoinsPromo.objects.create(
+#         name="Holiday Cheer Pack",
+#         description="Celebrate the season with a festive coin bundle and huge bonuses!",
+#         coins=3000,
+#         bonus_coins=750,
+#         price=24.99 * 37,  # Converted to MRU
+#         is_active=True
+#     )
+
+#     CoinsPromo.objects.create(
+#         name="Starter Pack",
+#         description="A small, affordable pack for first-time buyers.",
+#         coins=300,
+#         bonus_coins=30,
+#         price=2.99 * 37,  # Converted to MRU
+#         is_active=True
+#     )
+
+#     CoinsPromo.objects.create(
+#         name="Loyalty Rewards Pack",
+#         description="As a token of appreciation, we’re offering bonus coins exclusively for our loyal users!",
+#         coins=2000,
+#         bonus_coins=400,
+#         price=19.99 * 37,  # Converted to MRU
+#         is_active=True
+#     )
+
+#     CoinsPromo.objects.create(
+#         name="Ultimate Collector's Bundle",
+#         description="For the ultimate player! Unlock massive rewards with this premium bundle.",
+#         coins=10000,
+#         bonus_coins=2500,
+#         price=79.99 * 37,  # Converted to MRU
+#         is_active=True
+#     )
+
+#     CoinsPromo.objects.create(
+#         name="Mid-Week Coins Boost",
+#         description="Beat the mid-week slump with this surprise bonus offer.",
+#         coins=800,
+#         bonus_coins=160,
+#         price=6.99 * 37,  # Converted to MRU
+#         is_active=True
+#     )
+
+#     CoinsPromo.objects.create(
+#         name="Anniversary Special",
+#         description="Celebrate with us! Enjoy an exclusive promotion to mark our anniversary.",
+#         coins=4000,
+#         bonus_coins=800,
+#         price=29.99 * 37,  # Converted to MRU
+#         is_active=True
+#     )
