@@ -107,6 +107,7 @@ def emprent_avec_livreson(request,id):
     if "user" in request.session:
         email=request.session['user']
         client=Clients.objects.filter(email=email).first()
+        livre =Livre.objects.filter(id=int(id)).first()
         if client.nbr_point==0:
             return redirect('CoinsPromodisplay')
         if livre.count>0:

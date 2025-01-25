@@ -346,19 +346,19 @@
                     yesPleaseLink.href = `/emprent_avec_livreson/${currentBookId}`;
         
                     // Add event listeners to handle navigation programmatically
-                    noThanksLink.addEventListener("click", async (event) => {
-                        event.preventDefault(); // Prevent default link behavior
-                        const url = `/emprent_liver/${currentBookId}`;
-                        await fetch(url); // Send request to the server
-                        window.location.href = "/"; // Navigate to the new URL
-                    });
+                    // noThanksLink.addEventListener("click", async (event) => {
+                    //     event.preventDefault(); // Prevent default link behavior
+                    //     const url = `/emprent_liver/${currentBookId}`;
+                    //     await fetch(url); // Send request to the server
+                    //     window.location.href = "/"; // Navigate to the new URL
+                    // });
         
-                    yesPleaseLink.addEventListener("click", async (event) => {
-                        event.preventDefault(); // Prevent default link behavior
-                        const url = `/emprent_avec_livreson/${currentBookId}`;
-                        await fetch(url); // Send request to the server
-                        window.location.href = "/"; // Navigate to the new URL
-                    });
+                    // yesPleaseLink.addEventListener("click", async (event) => {
+                    //     event.preventDefault(); // Prevent default link behavior
+                    //     const url = `/emprent_avec_livreson/${currentBookId}`;
+                    //     await fetch(url); // Send request to the server
+                    //     window.location.href = "/"; // Navigate to the new URL
+                    // });
                 }
                 borrowModal.style.display = "";
                 bookModal.style.display = "none";
